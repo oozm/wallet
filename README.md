@@ -43,4 +43,4 @@
    node ./index.js
    ```
 
-   这将应用你对 `generateWalletWithEnding` 函数的修改。
+   这将应用你对 `generateWalletWithEnding` 函数的修改,并将生成后的钱包地址保存到 `wallet.json` 文件中。
