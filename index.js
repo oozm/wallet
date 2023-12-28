@@ -52,4 +52,4 @@ function writeFile(content) {
     }
   });
 }
-generateWalletWithEnding('88888888');
+generateWalletWithEnding('888888');
