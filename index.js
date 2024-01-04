@@ -2,6 +2,9 @@ const crypto = require('crypto');
 const Wallet = require('ethereumjs-wallet');
 const fs = require('fs');
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 function generateWalletAddress() {
   // 生成随机的私钥
   const privateKey = crypto.randomBytes(32);
@@ -18,14 +21,19 @@ function generateWalletAddress() {
 }
 console.log('执行中...');
 
-function generateWalletWithEnding(ending) {
+async function generateWalletWithEnding(ending, delayBetweenIterations) {
   let address = '';
-  do {
+  while (true) {
     address = generateWalletAddress();
-  } while (!address.address.endsWith(ending));
-  console.log('钱包地址:', address);
-  writeFile(address);
-  return address;
+    if (address.address.endsWith(ending)) {
+      console.log('钱包地址:', address);
+      writeFile(address);
+      return address;
+    }
+
+    // 等待一段时间
+    await sleep(delayBetweenIterations);
+  }
 }
 function writeFile(content) {
   // 读取文件内容
@@ -52,4 +60,4 @@ function writeFile(content) {
     }
   });
 }
-generateWalletWithEnding('888888');
+generateWalletWithEnding('888888', 1);
